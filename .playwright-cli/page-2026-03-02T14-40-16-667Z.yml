@@ -1,0 +1,51 @@
+- generic [ref=e2]:
+  - generic [ref=e4]:
+    - img [ref=e8]
+    - 'heading "Total views: 223,652 people." [level=3] [ref=e9]'
+    - generic [ref=e11]:
+      - 'textbox "Enter your name and surname: search" [ref=e12]'
+      - button "Search" [ref=e13] [cursor=pointer]
+    - generic [ref=e14] [cursor=pointer]:
+      - button [ref=e15]:
+        - img [ref=e16]
+      - generic [ref=e18]: Authorization
+    - generic [ref=e19] [cursor=pointer]:
+      - img [ref=e21]
+      - generic [ref=e22]: Searching for a missing person
+    - generic [ref=e23] [cursor=pointer]:
+      - img [ref=e25]
+      - generic [ref=e26]: Give information about the wanted person
+    - generic [ref=e27] [cursor=pointer]:
+      - img [ref=e29]
+      - generic [ref=e30]: Video message
+    - generic [ref=e31] [cursor=pointer]:
+      - img [ref=e33]
+      - generic [ref=e34]: Add a video message
+    - generic [ref=e35] [cursor=pointer]:
+      - button [ref=e36]:
+        - img [ref=e37]
+      - generic [ref=e39]: About us
+    - generic [ref=e40] [cursor=pointer]:
+      - button [ref=e41]:
+        - img [ref=e42]
+      - generic [ref=e44]: Live Stream
+  - generic [ref=e45]:
+    - generic [ref=e47]: How to search
+    - generic [ref=e49]: Participate in the project
+    - generic [ref=e51]: The purpose of our project
+  - generic [ref=e52]:
+    - heading "Join our project" [level=3] [ref=e53]
+    - heading "Join our project and to see his relatives get other opportunities!" [level=3] [ref=e54]:
+      - text: Join our project and to see his relatives
+      - text: get other opportunities!
+    - generic [ref=e56] [cursor=pointer]: Connections
+  - generic [ref=e58]:
+    - img [ref=e60] [cursor=pointer]
+    - img [ref=e62] [cursor=pointer]
+    - img [ref=e64] [cursor=pointer]
+    - img [ref=e66] [cursor=pointer]
+    - img [ref=e68] [cursor=pointer]
+    - img [ref=e70] [cursor=pointer]
+    - img [ref=e72] [cursor=pointer]
+    - img [ref=e74] [cursor=pointer]
+    - img [ref=e76] [cursor=pointer]

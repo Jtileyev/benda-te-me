@@ -1,0 +1,52 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - img "logo" [ref=e4]
+    - paragraph [ref=e5]: "Total views: 223,673 people."
+    - generic [ref=e6]:
+      - textbox "Search query" [ref=e7]:
+        - /placeholder: Enter your name and surname
+      - button "Search" [ref=e8] [cursor=pointer]
+    - generic [ref=e9]:
+      - link "Authorization" [ref=e10] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000/login
+        - generic [ref=e12]: Authorization
+      - link "Searching for a missing person" [ref=e13] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000/search
+        - generic [ref=e15]: Searching for a missing person
+      - link "Give information about the wanted person" [ref=e16] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000/provide-info
+        - generic [ref=e18]: Give information about the wanted person
+      - link "Video message" [ref=e19] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000/video-messages
+        - generic [ref=e21]: Video message
+      - link "Add a video message" [ref=e22] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000/video-messages/create
+        - generic [ref=e24]: Add a video message
+      - link "About us" [ref=e25] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000/about
+        - generic [ref=e27]: About us
+      - link "Live Stream" [ref=e28] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000/live
+        - generic [ref=e30]: Live Stream
+  - generic [ref=e32]:
+    - link "How to search" [ref=e33] [cursor=pointer]:
+      - /url: http://127.0.0.1:8000/search
+    - link "Participate in the project" [ref=e34] [cursor=pointer]:
+      - /url: http://127.0.0.1:8000/missing-person
+    - link "The purpose of our project" [ref=e35] [cursor=pointer]:
+      - /url: http://127.0.0.1:8000/about
+  - generic [ref=e36]:
+    - heading "Join our project" [level=2] [ref=e37]
+    - paragraph [ref=e38]: Together we can help families find answers.
+    - link "Connections" [ref=e39] [cursor=pointer]:
+      - /url: http://127.0.0.1:8000/register
+  - generic [ref=e41]:
+    - img "social link" [ref=e42]
+    - img "social link" [ref=e43]
+    - img "social link" [ref=e44]
+    - img "social link" [ref=e45]
+    - img "social link" [ref=e46]
+    - img "social link" [ref=e47]
+    - img "social link" [ref=e48]
+    - img "social link" [ref=e49]
+    - img "social link" [ref=e50]
