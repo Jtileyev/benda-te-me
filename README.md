@@ -40,3 +40,39 @@ php artisan serve
 ```bash
 php artisan test
 ```
+
+## Docker Compose
+```bash
+cp .env.example .env
+docker compose up -d --build
+docker compose exec app php artisan key:generate
+docker compose exec app php artisan migrate --seed
+docker compose exec app php artisan storage:link
+```
+
+Application URL: `http://localhost:8080`  
+MariaDB exposed on host: `127.0.0.1:3307`
+
+## Production with Traefik + SSL
+Prerequisites:
+- Public DNS `A` records for `benda-te-me.com` and `www.benda-te-me.com` point to your server.
+- Traefik is running and has entrypoints `web` (80), `websecure` (443), and cert resolver `letsencrypt`.
+- External Docker network `traefik-public` exists and Traefik is attached to it.
+
+Create network once (if needed):
+```bash
+docker network create traefik-public
+```
+
+Run app with Traefik override:
+```bash
+docker compose -f docker-compose.yml -f docker-compose.traefik.yml up -d --build
+docker compose -f docker-compose.yml -f docker-compose.traefik.yml exec app php artisan key:generate
+docker compose -f docker-compose.yml -f docker-compose.traefik.yml exec app php artisan migrate --seed
+docker compose -f docker-compose.yml -f docker-compose.traefik.yml exec app php artisan storage:link
+```
+
+Traefik labels are configured in `docker-compose.traefik.yml` for:
+- domain routing: `benda-te-me.com`, `www.benda-te-me.com`
+- HTTP -> HTTPS redirect
+- automatic Let's Encrypt certificate via `certresolver=letsencrypt`

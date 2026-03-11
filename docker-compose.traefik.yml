@@ -1,0 +1,33 @@
+services:
+  app:
+    environment:
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_URL: https://benda-te-me.com
+
+  nginx:
+    ports: []
+    networks:
+      - default
+      - traefik-public
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik-public
+
+      - traefik.http.routers.benda.rule=Host(`benda-te-me.com`) || Host(`www.benda-te-me.com`)
+      - traefik.http.routers.benda.entrypoints=websecure
+      - traefik.http.routers.benda.tls=true
+      - traefik.http.routers.benda.tls.certresolver=letsencrypt
+
+      - traefik.http.routers.benda-http.rule=Host(`benda-te-me.com`) || Host(`www.benda-te-me.com`)
+      - traefik.http.routers.benda-http.entrypoints=web
+      - traefik.http.routers.benda-http.middlewares=benda-https-redirect
+
+      - traefik.http.middlewares.benda-https-redirect.redirectscheme.scheme=https
+      - traefik.http.middlewares.benda-https-redirect.redirectscheme.permanent=true
+
+      - traefik.http.services.benda.loadbalancer.server.port=80
+
+networks:
+  traefik-public:
+    external: true
