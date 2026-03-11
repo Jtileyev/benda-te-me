@@ -1,47 +1,47 @@
-# Benda Te Me Clone (Laravel + Bootstrap + MariaDB)
+# Benda Te Me
 
-Full-stack implementation of the requested clone with:
-- Laravel 10 (compatible with current PHP 8.1 runtime)
-- Bootstrap 5.3 (Blade server-rendered views)
-- MariaDB-compatible schema (MySQL driver)
-- RU/EN localization
-- Public pages + auth + basic admin panel
+Веб-приложение на Laravel 10 с серверным рендерингом Blade, Bootstrap 5 и базой данных MariaDB/MySQL.
 
-## Implemented routes
-- Public: `/`, `/about`, `/live`, `/search`, `/missing-person`, `/provide-info`, `/video-messages`, `/video-messages/create`
-- Auth: `/login`, `/register`, `/logout`, `/password/*`
-- Admin: `/admin`, `/admin/requests`, `/admin/video-messages`, `/admin/content`, `/admin/users`
+## Технологии
+- PHP 8.2
+- Laravel 10
+- Bootstrap 5.3
+- Vite 5
+- MariaDB 11
 
-## Core features
-- Search form + saved search history
-- Missing person request form
-- Person info report form
-- Video message upload/link submission + moderation status
-- Admin moderation for requests and videos
-- Admin management for content keys and social links
-- Admin user role/status management
-- Locale switch (`RU/EN`) via `/locale/{locale}`
+## Основные разделы
+- Публичные страницы: `/`, `/about`, `/live`, `/search`, `/missing-person`, `/provide-info`, `/video-messages`, `/video-messages/create`
+- Аутентификация: `/login`, `/register`, `/logout`, `/password/*`
+- Админ-панель: `/admin`, `/admin/requests`, `/admin/video-messages`, `/admin/content`, `/admin/users`
 
-## Setup
+## Функциональность
+- Поиск и сохранение поисковых запросов
+- Форма заявки о пропавшем человеке
+- Форма передачи информации о человеке
+- Добавление видеосообщений и модерация
+- Управление контентом и пользователями в админ-панели
+- Переключение локали RU/EN через `/locale/{locale}`
+
+## Локальный запуск (без Docker)
 ```bash
 cp .env.example .env
-# Edit DB_* in .env for your MariaDB instance
+# Отредактируйте DB_* под вашу базу данных
 php artisan key:generate
 php artisan migrate --seed
 php artisan storage:link
 php artisan serve
 ```
 
-## Default admin account
-- Email: `admin@example.com`
-- Password: `password`
-
-## Tests
+## Тесты
 ```bash
 php artisan test
 ```
 
-## Docker Compose
+## Данные администратора по умолчанию
+- Email: `admin@example.com`
+- Пароль: `password`
+
+## Запуск через Docker Compose
 ```bash
 cp .env.example .env
 docker compose up -d --build
@@ -50,16 +50,17 @@ docker compose exec app php artisan migrate --seed
 docker compose exec app php artisan storage:link
 ```
 
-Application URL: `http://localhost:8080`  
-MariaDB exposed on host: `127.0.0.1:3307`
+- Приложение: `http://localhost:8080`
+- MariaDB на хосте: `127.0.0.1:3307`
 
-## Production with Traefik + SSL
-Prerequisites:
-- Public DNS `A` records for `benda-te-me.com` and `www.benda-te-me.com` point to your server.
-- Traefik is running with entrypoints `web` (80), `websecure` (443), and cert resolver `mytlschallenge`.
-- This app is started in the same Docker Compose project where Traefik service is running.
+## Продакшн с Traefik и SSL
+Требования:
+- DNS-записи `A` для `benda-te-me.com` и `www.benda-te-me.com` должны указывать на сервер.
+- Traefik должен быть запущен с entrypoints `web` (80) и `websecure` (443).
+- В Traefik должен быть настроен cert resolver `mytlschallenge`.
+- Приложение запускается в том же Docker Compose-проекте, где запущен Traefik.
 
-Run app with Traefik override:
+Запуск:
 ```bash
 docker compose -f docker-compose.yml -f docker-compose.traefik.yml up -d --build
 docker compose -f docker-compose.yml -f docker-compose.traefik.yml exec app php artisan key:generate
@@ -67,9 +68,9 @@ docker compose -f docker-compose.yml -f docker-compose.traefik.yml exec app php 
 docker compose -f docker-compose.yml -f docker-compose.traefik.yml exec app php artisan storage:link
 ```
 
-Traefik labels are configured in `docker-compose.traefik.yml` for:
-- domain routing: `benda-te-me.com`, `www.benda-te-me.com`
-- automatic Let's Encrypt certificate via `certresolver=mytlschallenge`
-- security headers middleware (STS/XSS/NoSniff)
+В `docker-compose.traefik.yml` уже настроены:
+- роутинг доменов `benda-te-me.com` и `www.benda-te-me.com`
+- автоматическое получение SSL-сертификата Let's Encrypt через `mytlschallenge`
+- заголовки безопасности (STS/XSS/NoSniff)
 
-If you run this app in a separate compose stack, create a shared external Docker network and attach both Traefik and this app to it.
+Если приложение запускается отдельным compose-стеком, подключите Traefik и приложение к общей внешней Docker-сети.
