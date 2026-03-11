@@ -56,13 +56,8 @@ MariaDB exposed on host: `127.0.0.1:3307`
 ## Production with Traefik + SSL
 Prerequisites:
 - Public DNS `A` records for `benda-te-me.com` and `www.benda-te-me.com` point to your server.
-- Traefik is running and has entrypoints `web` (80), `websecure` (443), and cert resolver `letsencrypt`.
-- External Docker network `traefik-public` exists and Traefik is attached to it.
-
-Create network once (if needed):
-```bash
-docker network create traefik-public
-```
+- Traefik is running with entrypoints `web` (80), `websecure` (443), and cert resolver `mytlschallenge`.
+- This app is started in the same Docker Compose project where Traefik service is running.
 
 Run app with Traefik override:
 ```bash
@@ -74,5 +69,7 @@ docker compose -f docker-compose.yml -f docker-compose.traefik.yml exec app php 
 
 Traefik labels are configured in `docker-compose.traefik.yml` for:
 - domain routing: `benda-te-me.com`, `www.benda-te-me.com`
-- HTTP -> HTTPS redirect
-- automatic Let's Encrypt certificate via `certresolver=letsencrypt`
+- automatic Let's Encrypt certificate via `certresolver=mytlschallenge`
+- security headers middleware (STS/XSS/NoSniff)
+
+If you run this app in a separate compose stack, create a shared external Docker network and attach both Traefik and this app to it.
