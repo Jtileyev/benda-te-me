@@ -13,7 +13,7 @@
         'ok'        => ['icon' => 'fa-brands fa-odnoklassniki','color' => '#EE8208'],
         'ok.ru'     => ['icon' => 'fa-brands fa-odnoklassniki','color' => '#EE8208'],
         'youtube'   => ['icon' => 'fa-brands fa-youtube',     'color' => '#FF0000'],
-        'snapchat'  => ['icon' => 'fa-brands fa-snapchat',    'color' => '#FFFC00'],
+        'snapchat'  => ['icon' => 'fa-brands fa-snapchat',    'color' => '#b38b00'],
         'whatsapp'  => ['icon' => 'fa-brands fa-whatsapp',    'color' => '#25D366'],
     ];
 @endphp

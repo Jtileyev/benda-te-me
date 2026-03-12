@@ -8,6 +8,9 @@
             'tiktok' => 'fa-brands fa-tiktok',
             'x' => 'fa-brands fa-x-twitter',
             'twitter' => 'fa-brands fa-x-twitter',
+            'vk' => 'fa-brands fa-vk',
+            'ok' => 'fa-brands fa-odnoklassniki',
+            'snapchat' => 'fa-brands fa-snapchat',
         ];
     @endphp
     <div class="container">

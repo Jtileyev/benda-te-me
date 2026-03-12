@@ -44,9 +44,15 @@ class DatabaseSeeder extends Seeder
         }
 
         $social = [
-            ['platform' => 'Telegram', 'url' => 'https://t.me', 'sort_order' => 1, 'is_active' => true],
-            ['platform' => 'Instagram', 'url' => 'https://instagram.com', 'sort_order' => 2, 'is_active' => true],
-            ['platform' => 'Facebook', 'url' => 'https://facebook.com', 'sort_order' => 3, 'is_active' => true],
+            ['platform' => 'Facebook', 'url' => 'https://www.facebook.com/profile.php?id=61572317708326&mibextid=wwXIfr', 'sort_order' => 1, 'is_active' => true],
+            ['platform' => 'Instagram', 'url' => 'https://www.instagram.com/li_benda_te_me__?igsh=MXZlMWhibGxrNWluMA%3D%3D&utm_source=qr', 'sort_order' => 2, 'is_active' => true],
+            ['platform' => 'TikTok', 'url' => 'https://www.tiktok.com/@bt.com.bt?_t=8oP9iW4TedR&_r=1', 'sort_order' => 3, 'is_active' => true],
+            ['platform' => 'VK', 'url' => 'https://m.vk.com/id841711778', 'sort_order' => 4, 'is_active' => true],
+            ['platform' => 'Telegram', 'url' => 'https://t.me/BT_NMG', 'sort_order' => 5, 'is_active' => true],
+            ['platform' => 'X', 'url' => 'https://x.com/benda_li83105', 'sort_order' => 6, 'is_active' => true],
+            ['platform' => 'OK', 'url' => 'https://ok.ru/profile/587992629098', 'sort_order' => 7, 'is_active' => true],
+            ['platform' => 'YouTube', 'url' => 'https://www.youtube.com/@sterkenkurd1112?si=gevElIkHga0JUhL9', 'sort_order' => 8, 'is_active' => true],
+            ['platform' => 'Snapchat', 'url' => 'https://snapchat.com/t/55yPSFtF', 'sort_order' => 9, 'is_active' => true],
         ];
 
         foreach ($social as $link) {
