@@ -38,6 +38,7 @@ php artisan test
 ```
 
 ## Данные администратора по умолчанию
+- Создаются только в окружениях `local/testing` или при `SEED_DEFAULT_ADMIN=true`
 - Email: `admin@example.com`
 - Пароль: `password`
 
@@ -46,7 +47,7 @@ php artisan test
 cp .env.example .env
 docker compose up -d --build
 docker compose exec app php artisan key:generate
-docker compose exec app php artisan migrate --seed
+docker compose exec app php artisan migrate
 docker compose exec app php artisan storage:link
 ```
 
@@ -64,7 +65,7 @@ docker compose exec app php artisan storage:link
 ```bash
 docker compose -f docker-compose.yml -f docker-compose.traefik.yml up -d --build
 docker compose -f docker-compose.yml -f docker-compose.traefik.yml exec app php artisan key:generate
-docker compose -f docker-compose.yml -f docker-compose.traefik.yml exec app php artisan migrate --seed
+docker compose -f docker-compose.yml -f docker-compose.traefik.yml exec app php artisan migrate --force
 docker compose -f docker-compose.yml -f docker-compose.traefik.yml exec app php artisan storage:link
 ```
 
@@ -74,3 +75,38 @@ docker compose -f docker-compose.yml -f docker-compose.traefik.yml exec app php 
 - заголовки безопасности (STS/XSS/NoSniff)
 
 Если приложение запускается отдельным compose-стеком, подключите Traefik и приложение к общей внешней Docker-сети.
+
+## Деплой на обычный PHP-хостинг (без Docker и Node.js на сервере)
+Node.js нужен только на этапе сборки фронтенда локально.
+
+1. Локально соберите ассеты:
+```bash
+npm install
+npm run build
+```
+
+2. Подготовьте прод-конфиг:
+```bash
+cp .env.production.example .env
+# Заполните APP_URL, DB_*, MAIL_*
+```
+
+3. Загрузите проект на сервер (включая `public/build`).
+
+4. На сервере выполните:
+```bash
+composer install --no-dev --optimize-autoloader
+php artisan key:generate --force
+php artisan migrate --force
+php artisan storage:link
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+5. Проверьте настройки хостинга:
+- web-root должен указывать на каталог `public`
+- каталоги `storage` и `bootstrap/cache` должны быть доступны для записи
+- в `.env` должны быть `APP_ENV=production` и `APP_DEBUG=false`
+
+Важно: не запускайте `php artisan migrate --seed` в production, если не хотите создавать демо-админа.

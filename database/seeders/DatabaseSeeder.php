@@ -13,15 +13,17 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        User::updateOrCreate(
-            ['email' => 'admin@example.com'],
-            [
-                'name' => 'Admin',
-                'password' => Hash::make('password'),
-                'role' => 'admin',
-                'status' => 'active',
-            ]
-        );
+        if ($this->shouldSeedDefaultAdmin()) {
+            User::updateOrCreate(
+                ['email' => 'admin@example.com'],
+                [
+                    'name' => 'Admin',
+                    'password' => Hash::make('password'),
+                    'role' => 'admin',
+                    'status' => 'active',
+                ]
+            );
+        }
 
         $contents = [
             ['key' => 'hero_title', 'locale' => 'en', 'value' => 'BENDA TE ME', 'updated_by' => null],
@@ -55,5 +57,14 @@ class DatabaseSeeder extends Seeder
         }
 
         ViewCounter::firstOrCreate(['page_key' => 'home'], ['total_views' => 223652]);
+    }
+
+    private function shouldSeedDefaultAdmin(): bool
+    {
+        if (app()->environment(['local', 'testing'])) {
+            return true;
+        }
+
+        return filter_var(env('SEED_DEFAULT_ADMIN', false), FILTER_VALIDATE_BOOL);
     }
 }
