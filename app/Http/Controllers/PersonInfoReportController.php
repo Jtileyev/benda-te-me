@@ -16,9 +16,17 @@ class PersonInfoReportController extends Controller
 
     public function store(StorePersonInfoReportRequest $request): RedirectResponse
     {
+        $data = $request->validated();
+        unset($data['image']);
+
+        $imagePath = $request->hasFile('image')
+            ? $request->file('image')->store('person-info-reports', 'public')
+            : null;
+
         PersonInfoReport::create([
-            ...$request->validated(),
+            ...$data,
             'reporter_user_id' => auth()->id(),
+            'image_path' => $imagePath,
             'status' => 'new',
         ]);
 

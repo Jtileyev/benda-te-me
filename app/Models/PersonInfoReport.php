@@ -14,6 +14,7 @@ class PersonInfoReport extends Model
         'target_person_name',
         'message',
         'contacts',
+        'image_path',
         'status',
     ];
 }

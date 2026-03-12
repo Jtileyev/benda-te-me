@@ -16,6 +16,7 @@ class MissingPersonRequest extends Model
         'last_seen_place',
         'description',
         'contacts',
+        'image_path',
         'status',
     ];
 

@@ -14,6 +14,7 @@
             <thead><tr>
                 <th>ID</th>
                 <th>{{ __('site.name') }}</th>
+                <th>{{ __('site.image') }}</th>
                 <th>{{ __('site.last_seen_place') }}</th>
                 <th>{{ __('site.status') }}</th>
                 <th>{{ __('site.actions') }}</th>
@@ -23,6 +24,13 @@
                 <tr>
                     <td><span class="fw-semibold text-muted">#{{ $item->id }}</span></td>
                     <td><strong>{{ $item->full_name }}</strong></td>
+                    <td>
+                        @if($item->image_path)
+                            <a target="_blank" rel="noopener" href="{{ asset('storage/' . $item->image_path) }}">{{ __('site.open_image') }}</a>
+                        @else
+                            <span class="text-muted">—</span>
+                        @endif
+                    </td>
                     <td class="text-muted">{{ Str::limit($item->last_seen_place ?? '—', 30) }}</td>
                     <td><span class="status-badge status-{{ $item->status }}">{{ __('site.' . $item->status) }}</span></td>
                     <td>
@@ -60,6 +68,7 @@
             <thead><tr>
                 <th>ID</th>
                 <th>{{ __('site.name') }}</th>
+                <th>{{ __('site.image') }}</th>
                 <th>{{ __('site.status') }}</th>
                 <th>{{ __('site.actions') }}</th>
             </tr></thead>
@@ -68,6 +77,13 @@
                 <tr>
                     <td><span class="fw-semibold text-muted">#{{ $item->id }}</span></td>
                     <td><strong>{{ $item->target_person_name }}</strong></td>
+                    <td>
+                        @if($item->image_path)
+                            <a target="_blank" rel="noopener" href="{{ asset('storage/' . $item->image_path) }}">{{ __('site.open_image') }}</a>
+                        @else
+                            <span class="text-muted">—</span>
+                        @endif
+                    </td>
                     <td><span class="status-badge status-{{ $item->status }}">{{ __('site.' . $item->status) }}</span></td>
                     <td>
                         <form method="POST" action="{{ route('admin.requests.report.update', $item) }}" class="d-flex gap-2 align-items-center">

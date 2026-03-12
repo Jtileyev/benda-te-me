@@ -16,9 +16,17 @@ class MissingPersonRequestController extends Controller
 
     public function store(StoreMissingPersonRequest $request): RedirectResponse
     {
+        $data = $request->validated();
+        unset($data['image']);
+
+        $imagePath = $request->hasFile('image')
+            ? $request->file('image')->store('missing-person-requests', 'public')
+            : null;
+
         MissingPersonRequest::create([
-            ...$request->validated(),
+            ...$data,
             'applicant_user_id' => auth()->id(),
+            'image_path' => $imagePath,
             'status' => 'new',
         ]);
 

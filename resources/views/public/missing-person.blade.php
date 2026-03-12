@@ -5,7 +5,7 @@
     <h1 class="mb-2">{{ __('site.search_missing') }}</h1>
     <p class="text-muted mb-4">{{ __('site.missing_person_hint') }}</p>
 
-    <form method="POST" action="{{ route('missing-person.store') }}" class="card card-body shadow-sm">
+    <form method="POST" action="{{ route('missing-person.store') }}" enctype="multipart/form-data" class="card card-body shadow-sm">
         @csrf
         <div class="row">
             <div class="col-md-6 mb-3">
@@ -28,6 +28,10 @@
         <div class="mb-4">
             <label class="form-label">{{ __('site.contacts') }} <span class="text-danger">*</span></label>
             <input name="contacts" class="form-control" value="{{ old('contacts') }}" required>
+        </div>
+        <div class="mb-4">
+            <label class="form-label">{{ __('site.image') }}</label>
+            <input type="file" name="image" class="form-control" accept="image/*">
         </div>
         <button class="btn btn-warning">
             <i class="fa-solid fa-paper-plane me-1"></i>{{ __('site.save') }}

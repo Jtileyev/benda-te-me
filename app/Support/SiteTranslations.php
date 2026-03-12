@@ -6,7 +6,7 @@ use Illuminate\Support\Arr;
 
 class SiteTranslations
 {
-    public const LOCALES = ['en', 'ru'];
+    public const LOCALES = ['en', 'ru', 'ku', 'ckb'];
 
     public static function load(string $locale): array
     {
@@ -44,19 +44,25 @@ class SiteTranslations
 
     public static function allRows(): array
     {
-        $en = self::load('en');
-        $ru = self::load('ru');
+        $byLocale = [];
+        foreach (self::LOCALES as $locale) {
+            $byLocale[$locale] = self::load($locale);
+        }
 
-        $keys = array_values(array_unique(array_merge(array_keys($en), array_keys($ru))));
+        $keys = [];
+        foreach ($byLocale as $localeRows) {
+            $keys = array_merge($keys, array_keys($localeRows));
+        }
+        $keys = array_values(array_unique($keys));
         sort($keys);
 
         $rows = [];
         foreach ($keys as $key) {
-            $rows[] = [
-                'key' => $key,
-                'en' => Arr::get($en, $key, ''),
-                'ru' => Arr::get($ru, $key, ''),
-            ];
+            $row = ['key' => $key];
+            foreach (self::LOCALES as $locale) {
+                $row[$locale] = Arr::get($byLocale[$locale], $key, '');
+            }
+            $rows[] = $row;
         }
 
         return $rows;

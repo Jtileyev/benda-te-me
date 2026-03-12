@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <img class="hero-logo" src="https://1db93b79865b1f152c80eddf1f5e09ca.cdn.bubble.io/f1737968916794x259111897769757950/Group%203%20%284%29.svg" alt="logo">
+        <img class="hero-logo" src="{{ asset('images/hero-logo.svg') }}" alt="logo">
         <p class="hero-views">{!! str_replace(number_format($totalViews), '<span class="count-up" data-target="' . $totalViews . '">0</span>', __('site.views', ['count' => number_format($totalViews)])) !!}</p>
 
         <form class="search-row" method="POST" action="{{ route('search.store') }}">

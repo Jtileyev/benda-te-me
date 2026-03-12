@@ -19,6 +19,7 @@ class StoreMissingPersonRequest extends FormRequest
             'last_seen_place' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:4000'],
             'contacts' => ['required', 'string', 'max:255'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
         ];
     }
 }

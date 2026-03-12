@@ -28,8 +28,11 @@ Route::post('/search', [SearchController::class, 'store'])->middleware('throttle
 Route::get('/missing-person', [MissingPersonRequestController::class, 'create'])->name('missing-person.create');
 Route::post('/missing-person', [MissingPersonRequestController::class, 'store'])->middleware('throttle:20,1')->name('missing-person.store');
 
-Route::get('/provide-info', [PersonInfoReportController::class, 'create'])->name('provide-info.create');
-Route::post('/provide-info', [PersonInfoReportController::class, 'store'])->middleware('throttle:20,1')->name('provide-info.store');
+Route::middleware('auth')->group(function (): void {
+    Route::get('/cabinet', [HomeController::class, 'cabinet'])->name('cabinet');
+    Route::get('/provide-info', [PersonInfoReportController::class, 'create'])->name('provide-info.create');
+    Route::post('/provide-info', [PersonInfoReportController::class, 'store'])->middleware('throttle:20,1')->name('provide-info.store');
+});
 
 Route::get('/video-messages', [VideoMessageController::class, 'index'])->name('video-messages.index');
 Route::get('/video-messages/create', [VideoMessageController::class, 'create'])->middleware('auth')->name('video-messages.create');

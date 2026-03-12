@@ -88,8 +88,8 @@ return [
     'available_locales' => [
         'en' => ['name' => 'English',  'flag' => '🇬🇧'],
         'ru' => ['name' => 'Русский',  'flag' => '🇷🇺'],
-        'fr' => ['name' => 'Français', 'flag' => '🇫🇷'],
-        'ha' => ['name' => 'Hausa',    'flag' => '🇳🇬'],
+        'ku' => ['name' => 'Kurmanci', 'flag' => 'KU'],
+        'ckb' => ['name' => 'Soranî',  'flag' => 'CKB'],
     ],
 
     /*

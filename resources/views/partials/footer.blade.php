@@ -1,4 +1,15 @@
 <footer class="app-footer">
+    @php
+        $platformIcons = [
+            'telegram' => 'fa-brands fa-telegram',
+            'instagram' => 'fa-brands fa-instagram',
+            'facebook' => 'fa-brands fa-facebook-f',
+            'youtube' => 'fa-brands fa-youtube',
+            'tiktok' => 'fa-brands fa-tiktok',
+            'x' => 'fa-brands fa-x-twitter',
+            'twitter' => 'fa-brands fa-x-twitter',
+        ];
+    @endphp
     <div class="container">
         <div class="app-footer-grid">
             <div>
@@ -29,9 +40,14 @@
         <div class="app-footer-bottom">
             <span>&copy; {{ date('Y') }} {{ __('site.brand') }}</span>
             <div class="app-footer-social">
-                <a href="#" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
-                <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                @foreach(($footerSocialLinks ?? collect()) as $link)
+                    @php
+                        $icon = $platformIcons[strtolower($link->platform)] ?? 'fa-solid fa-link';
+                    @endphp
+                    <a href="{{ $link->url }}" target="_blank" rel="noopener" aria-label="{{ $link->platform }}">
+                        <i class="{{ $icon }}"></i>
+                    </a>
+                @endforeach
             </div>
         </div>
     </div>

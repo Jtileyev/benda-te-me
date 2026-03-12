@@ -12,8 +12,9 @@
             <table class="table table-striped align-middle mb-0">
                 <thead><tr>
                     <th style="min-width: 180px;">{{ __('site.translation_key') }}</th>
-                    <th style="min-width: 280px;">EN</th>
-                    <th style="min-width: 280px;">RU</th>
+                    @foreach($locales as $code => $meta)
+                        <th style="min-width: 260px;">{{ strtoupper($code) }} @if(!empty($meta['name'])) ({{ $meta['name'] }}) @endif</th>
+                    @endforeach
                 </tr></thead>
                 <tbody>
                 @foreach($rows as $index => $row)
@@ -22,8 +23,13 @@
                             <code style="font-size: 0.78rem; color: var(--text-muted);">{{ $row['key'] }}</code>
                             <input type="hidden" name="translations[{{ $index }}][key]" value="{{ $row['key'] }}">
                         </td>
-                        <td><textarea class="form-control form-control-sm" rows="2" name="translations[{{ $index }}][en]">{{ $row['en'] }}</textarea></td>
-                        <td><textarea class="form-control form-control-sm" rows="2" name="translations[{{ $index }}][ru]">{{ $row['ru'] }}</textarea></td>
+                        @foreach($locales as $code => $meta)
+                            <td>
+                                <textarea class="form-control form-control-sm"
+                                          rows="2"
+                                          name="translations[{{ $index }}][{{ $code }}]">{{ $row[$code] ?? '' }}</textarea>
+                            </td>
+                        @endforeach
                     </tr>
                 @endforeach
                 </tbody>
@@ -41,14 +47,12 @@
                 <label class="form-label">{{ __('site.translation_key') }}</label>
                 <input class="form-control" name="new_key" placeholder="{{ __('site.translation_key_placeholder') }}">
             </div>
-            <div class="col-md-4">
-                <label class="form-label">EN</label>
-                <input class="form-control" name="new_en">
-            </div>
-            <div class="col-md-5">
-                <label class="form-label">RU</label>
-                <input class="form-control" name="new_ru">
-            </div>
+            @foreach($locales as $code => $meta)
+                <div class="col-md-3">
+                    <label class="form-label">{{ strtoupper($code) }}</label>
+                    <input class="form-control" name="new_{{ $code }}">
+                </div>
+            @endforeach
         </div>
     </div>
 

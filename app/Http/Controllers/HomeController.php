@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SiteContent;
 use App\Models\SocialLink;
 use App\Models\ViewCounter;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -24,8 +25,13 @@ class HomeController extends Controller
         ];
 
         $actions = [
-            ['label' => __('site.authorization'), 'href' => route('login'), 'fa' => 'fa-solid fa-right-to-bracket'],
-            ['label' => __('site.search_missing'), 'href' => route('search'), 'fa' => 'fa-solid fa-magnifying-glass'],
+            [
+                'label' => Auth::check() ? __('site.personal_cabinet') : __('site.authorization'),
+                'href' => Auth::check() ? route('cabinet') : route('login'),
+                'fa' => Auth::check() ? 'fa-solid fa-user' : 'fa-solid fa-right-to-bracket',
+            ],
+            ['label' => __('site.search'), 'href' => route('search'), 'fa' => 'fa-solid fa-magnifying-glass'],
+            ['label' => __('site.search_missing'), 'href' => route('missing-person.create'), 'fa' => 'fa-solid fa-user-plus'],
             ['label' => __('site.provide_info'), 'href' => route('provide-info.create'), 'fa' => 'fa-solid fa-circle-info'],
             ['label' => __('site.video_messages'), 'href' => route('video-messages.index'), 'fa' => 'fa-solid fa-video'],
             ['label' => __('site.add_video_message'), 'href' => route('video-messages.create'), 'fa' => 'fa-solid fa-plus'],
@@ -36,6 +42,14 @@ class HomeController extends Controller
         $socialLinks = SocialLink::where('is_active', true)
             ->orderBy('sort_order')
             ->get();
+
+        if ($socialLinks->isEmpty()) {
+            $socialLinks = collect([
+                (object) ['platform' => 'Telegram', 'url' => 'https://t.me'],
+                (object) ['platform' => 'Instagram', 'url' => 'https://instagram.com'],
+                (object) ['platform' => 'Facebook', 'url' => 'https://facebook.com'],
+            ]);
+        }
 
         return view('public.home', [
             'content' => $content,
@@ -54,5 +68,10 @@ class HomeController extends Controller
         }
 
         return back();
+    }
+
+    public function cabinet(): View
+    {
+        return view('public.cabinet');
     }
 }

@@ -4,6 +4,10 @@
 <div class="container">
     <h1 class="mb-2">{{ __('site.add_video_message') }}</h1>
     <p class="text-muted mb-4">{{ __('site.video_create_hint') }}</p>
+    <div class="alert alert-info mb-4" role="alert">
+        <strong>{{ __('site.how_to_use') }}</strong>
+        <div>{{ __('site.video_create_help_short') }}</div>
+    </div>
 
     <form method="POST" action="{{ route('video-messages.store') }}" enctype="multipart/form-data" class="card card-body shadow-sm">
         @csrf
